@@ -15,9 +15,10 @@ app.use(bodyParser.json())
 
 app.use(require('./routes/usuario'));
 
-mongoose.connect(process.env.URLDB, (err, res) => {
-    if (err) throw err;
-
+mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err, res) => {
+    if (err) {
+        throw err;
+    }
     console.log('Base de datos ONLINE');
 });
 
