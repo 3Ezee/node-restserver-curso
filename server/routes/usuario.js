@@ -29,7 +29,7 @@ app.get('/usuario', verificaToken, (req, res) => {
                 });
             }
 
-            Usuario.count({ estado: true }, (err, conteo) => {
+            Usuario.countDocuments({ estado: true }, (err, conteo) => {
                 res.json({
                     ok: true,
                     usuarios,
@@ -48,7 +48,7 @@ app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
         email: body.email,
         password: bcrypt.hashSync(body.password, 10),
         role: body.role
-    })
+    });
 
     usuario.save((err, usuarioDB) => {
         if (err) {
@@ -56,13 +56,13 @@ app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
                 ok: false,
                 err
             });
-        }
+        };
 
         res.json({
             ok: true,
             usuario: usuarioDB
-        })
-    })
+        });
+    });
 });
 
 app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) {
